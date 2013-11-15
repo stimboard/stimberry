@@ -1,8 +1,7 @@
 class stimberry {
-	
+
 	package {
 		['nodejs', 'npm']:,;
-#		['forever']: provider => 'npm',;
 	}
 	file { '/usr/bin/node':
 		ensure  => 'link',
@@ -18,6 +17,14 @@ class stimberry {
 		source   => 'git://github.com/fmaurica/trivial-chat.git',
 
 		require  => File['/var/www/nodesites'],
+	}
+	# node_modules has to be done manually because not supported by puppetlabs...
+	service { 'trivial-chat':
+		ensure     => 'stopped',
+		hasrestart => false,
+		hasstatus  => false,
+		start      => 'node /var/www/nodesites/trivial-chat/index.js',
+		stop       => 'killall -s SIGKILL node',
 	}
 
 	class { 'fm_hostapd':
