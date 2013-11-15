@@ -1,7 +1,9 @@
 class stimberry {
 	
 	package {
-		['nodejs', 'npm']:,
+		['nodejs', 'npm']:,;
+		['forever']:
+			provider => 'npm',;
 	}
 
 	class { 'fm_hostapd':
