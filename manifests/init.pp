@@ -2,9 +2,12 @@ class stimberry {
 	
 	package {
 		['nodejs', 'npm']:,;
-		['forever']:
-			provider => 'npm',;
+#		['forever']: provider => 'npm',;
 	}
+	file { '/usr/bin/node':
+		ensure  => 'link',
+		target  => '/usr/bin/nodejs',
+	}	
 
 	file { ['/var/www', '/var/www/nodesites']:
 		ensure  => 'directory',
