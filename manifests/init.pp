@@ -27,13 +27,19 @@ class stimberry {
 	vcsrepo { '/var/www/nodesites/stimboard/ui':
 		ensure   => present,
 		provider => git,
-		source   => 'git://github.com/Fenitra/STIMBoard.git',
+		source   => 'https://github.com/stimboard/stimui.git',
 
 		require  => [
 			File['/var/www/nodesites'],
 			Vcsrepo['/var/www/nodesites/stimboard'],
 			    ],
+	}->
+	file { '/usr/local/share/fonts':
+		source   => '/var/www/nodesites/stimboard/ui/fonts',
+		recurse  => true,
+		purge    => true,
 	}
+
 	# node_modules has to be done manually because not supported by puppetlabs...
 	service { 'stimboard':
 		ensure     => 'stopped',
@@ -48,7 +54,7 @@ class stimberry {
 		ssid       => 'stimberry_wn',
 		channel    => '5',
 		passphrase => 'changeme',
-		ensure     => 'running',
+		ensure     => 'stopped',
 	}
 
 }
