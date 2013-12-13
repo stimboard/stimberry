@@ -4,6 +4,7 @@ class stimberry {
 		['nodejs', 'npm']:,;
 	}
 	package {['mysql-server']: }
+	->
 	service { 'mysql':
 		ensure     => 'running',
 	}
